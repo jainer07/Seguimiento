@@ -30,9 +30,9 @@ namespace SeguimientoApi.Controllers
         }
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public IActionResult Authenticate([FromBody] UserCred user)
+        public IActionResult Authenticate([FromBody] Usuario user)
         {
-            var Token = AuthManager.Authenticate(user.UserName, user.Password);
+            var Token = AuthManager.Authenticate(user.NombreUsuario, user.Contrasena);
 
             if (Token == null)
                 return Unauthorized();

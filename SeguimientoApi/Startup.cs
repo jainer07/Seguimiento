@@ -15,6 +15,8 @@ using SeguimientoApi.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SeguimientoApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SeguimientoApi
 {
@@ -30,8 +32,11 @@ namespace SeguimientoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var Key = Configuration["JWT:SecretKey"];
+            var ConString = Configuration.GetConnectionString("SeguimientoEntities");
+
+            services.AddDbContext<SegimientoDbContext>(options => options.UseSqlServer(ConString));
             services.AddControllers();
-            var Key = "122fhwfwfbnw454lz.,,+";
 
             services.AddAuthentication(x =>
             {
